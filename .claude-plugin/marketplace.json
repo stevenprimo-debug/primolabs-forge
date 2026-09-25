@@ -1,0 +1,15 @@
+{
+  "name": "primolabs-forge",
+  "description": "PrimoLabs Forge — a Claude Code authoring kit.",
+  "owner": {
+    "name": "PrimoLabs",
+    "email": "hello@primolabs.ai"
+  },
+  "plugins": [
+    {
+      "name": "primolabs-forge",
+      "source": "./",
+      "description": "Authoring kit: skill / agent / prompt factories, a pre-mortem and deploy-reality-check discipline, and branded HTML/PDF rendering."
+    }
+  ]
+}

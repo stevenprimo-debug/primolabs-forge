@@ -1,0 +1,23 @@
+/* print-pagination.css — orphan-proof print CSS partial for --paginated (older-client) mode.
+ *
+ * WHY: in --paginated mode Chromium breaks pages wherever it likes — it will
+ * strand a section heading at the bottom of a page (orphan) and split a callout
+ * card across a page boundary. This partial pins those break points so a
+ * paginated client PDF reads clean: heading stays with its content, cards stay whole.
+ *
+ * HOW TO USE: paste this block into the target HTML's <style>, OR <link> it in.
+ * Then MAP the selectors below to the target doc's ACTUAL class names — the
+ * defaults match the depth-design-system deliverable grammar emitted by
+ * md-to-branded-html (.section-label heading pill, .section-lede sub-heading text,
+ * .check / .card depth cards). If your doc calls its heading .step-title or its
+ * callout .callout, add those selectors here. Seamless (default) mode does NOT
+ * need this file.
+ */
+@media print {
+  /* keep a section heading with its following content (no stranded heading) */
+  .section-label, h2, h3 { break-after: avoid;  page-break-after: avoid; }
+  /* keep the lede/sub-heading attached to the heading above it */
+  .section-lede          { break-before: avoid; page-break-before: avoid; }
+  /* never split a callout / check card across a page */
+  .check, .card          { break-inside: avoid; page-break-inside: avoid; }
+}

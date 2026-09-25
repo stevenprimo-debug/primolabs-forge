@@ -1,0 +1,37 @@
+{
+  "brand": {
+    "name": "Your Brand",
+    "name_stylized": "YOUR BRAND",
+    "owner_dept_label": "TEAM"
+  },
+  "typography": {
+    "display_font": "system-ui",
+    "body_font": "system-ui",
+    "mono_font": "ui-monospace",
+    "google_fonts_href": ""
+  },
+  "palette": {
+    "bg_app": "#ffffff",
+    "bg_card": "#faf7f3",
+    "bg_elev": "#faf7f3",
+    "bg_inset": "#f1ede8",
+    "border": "rgba(20,16,14,0.10)",
+    "divider": "rgba(20,16,14,0.18)",
+    "text": "#1a1310",
+    "text_mid": "#5c5048",
+    "text_dim": "#8a8278",
+    "white_bevel": "#ffffff",
+    "accent": "#2563eb",
+    "accent_alt": "#475569"
+  },
+  "radius": {
+    "btn": "10px",
+    "card": "20px",
+    "panel": "40px",
+    "pill": "1000px"
+  },
+  "depth": {
+    "sheen_graphite": "linear-gradient(180deg,#000 0%,#fff 170%)",
+    "blur_glass": "5px"
+  }
+}

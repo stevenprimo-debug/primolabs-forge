@@ -1,0 +1,14 @@
+{
+  "name": "primolabs-forge",
+  "displayName": "PrimoLabs Forge",
+  "version": "0.1.0",
+  "description": "An authoring kit for Claude Code. Factories that scaffold and validate skills, agents, and prompts; pre-mortem and deploy-reality-check discipline; and branded Markdown-to-HTML/PDF rendering. Build with Claude Code the way a studio does.",
+  "author": {
+    "name": "PrimoLabs",
+    "email": "hello@primolabs.ai"
+  },
+  "homepage": "https://github.com/stevenprimo-debug/primolabs-forge",
+  "repository": "https://github.com/stevenprimo-debug/primolabs-forge",
+  "license": "MIT",
+  "skills": "./skills/"
+}
