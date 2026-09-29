@@ -33,7 +33,6 @@ Skills invoke as `primolabs-forge:<skill>` (or the bare `/<skill>` when the name
 | Skill | What it does |
 |-------|--------------|
 | `pre-mortem` | Imagine the failure before it happens (Klein's technique) — surface failure modes and mitigations before you ship. |
-| `deploy-reality-check` | Before any deploy or stack decision, confirm the *actual* live host/config/DNS against reality instead of trusting a doc. |
 
 ### Rendering — make it readable
 | Skill | What it does |

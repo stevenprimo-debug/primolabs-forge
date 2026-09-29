@@ -9,7 +9,7 @@
     {
       "name": "primolabs-forge",
       "source": "./",
-      "description": "Authoring kit: skill / agent / prompt factories, a pre-mortem and deploy-reality-check discipline, and branded HTML/PDF rendering."
+      "description": "Authoring kit: skill / agent / prompt factories, a pre-mortem discipline, and branded HTML/PDF rendering."
     }
   ]
 }
