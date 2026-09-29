@@ -24,14 +24,30 @@ into the _main_ conversation when it fires. It sees what was just said and can a
 mid-task, which is exactly what a subagent cannot. Reach for `agent-factory` instead when the
 work wants isolation: a fresh reviewer, a parallel sweep, a verdict returned blind.
 
-## Ground truth is Anthropic's live skills doc
+## Step 0 — root in the live docs, before the interview
 
-The frontmatter schema, the description cap, the `metadata:` policy, and load semantics track
-https://code.claude.com/docs/en/skills. Anthropic's upload check rejects unknown frontmatter
-keys with a hard error, and the description + `when_to_use` text is truncated at 1,536
-characters in the skill listing — both stated by the live doc, not derivable. Before asserting
-a field is allowed, fetch the doc. When a claim comes from training rather than the page you
-read this session, say **"From training, not a doc:"** so it can be checked.
+Fetch the current skills reference **before you build anything**, so every field and
+frontmatter answer the interview gives is anchored in today's doc rather than last month's
+recall:
+
+- Fetch `https://code.claude.com/docs/en/skills` with `WebFetch` — the built-in Claude Code
+  fetch tool. It just retrieves the URL; it does NOT depend on this plugin, on the Anthropic
+  API, or on any other skill being installed, so it works the same whether you invoke this
+  from `primolabs-forge`, another marketplace, or bare Claude Code. (If the session happens to
+  carry a docs skill, that's a fine substitute — but nothing here requires one.) From the page
+  read the frontmatter schema, the `metadata:` policy, the description + `when_to_use`
+  1,536-char cap, the upload-safe key allowlist, and the load paths.
+- The schema is not derivable from training: Anthropic's upload check rejects unknown keys
+  with a hard error, and which keys survive an upload is stated only on the page. Ground the
+  interview's frontmatter guidance in what you just read, not in this file's summary of it.
+- If the fetch fails (offline, no tool), say so and proceed from the in-file guidance below,
+  labeling anything asserted from training **"From training, not a doc:"** so it can be
+  checked. Never silently build on recall.
+
+Ground truth is the live page, not this file. Where they disagree, the doc wins and you say
+so. (When the skill names a third-party service, the same rule applies to that vendor's doc —
+declare it in `--docs` and fetch at the moment of need; a wrong API version fails _forward_,
+behaving differently instead of erroring.)
 
 ## The interview
 
