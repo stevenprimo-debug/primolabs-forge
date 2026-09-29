@@ -40,9 +40,12 @@ recall:
 - The schema is not derivable from training: Anthropic's upload check rejects unknown keys
   with a hard error, and which keys survive an upload is stated only on the page. Ground the
   interview's frontmatter guidance in what you just read, not in this file's summary of it.
-- If the fetch fails (offline, no tool), say so and proceed from the in-file guidance below,
-  labeling anything asserted from training **"From training, not a doc:"** so it can be
-  checked. Never silently build on recall.
+- If the fetch can't run — `WebFetch` isn't granted in this harness, or the docs host is
+  blocked/unreachable — **STOP. Do not author from training.** Report that the live-docs fetch
+  failed and what unblocks it (grant `WebFetch`, or allow `code.claude.com`), then wait.
+  Rooting in the live doc is a hard gate here: **no live doc, no build.** The in-file guidance
+  below is a reading aid for how to run the interview, never a substitute for the fetched
+  schema — the facts come from the page every time.
 
 Ground truth is the live page, not this file. Where they disagree, the doc wins and you say
 so. (When the skill names a third-party service, the same rule applies to that vendor's doc —
@@ -248,8 +251,10 @@ file is on disk and dead — check the path before touching the content.
 
 ## Definition of done
 
-The interview was answered (not skipped); the folder exists at `.claude/skills/<slug>/`; the
-description names concrete trigger cases; the chosen frontmatter knobs are set and the rest
-left inheriting; every `{{...}}` slot is filled; `evals/evals.json` holds 2–3 real prompts;
+The live skills doc was fetched this session and the field/frontmatter guidance came from it,
+not training (no fetch → no build); the interview was answered (not skipped); the folder
+exists at `.claude/skills/<slug>/`; the description names concrete trigger cases; the chosen
+frontmatter knobs are set and the rest left inheriting; every `{{...}}` slot is filled;
+`evals/evals.json` holds 2–3 real prompts;
 the skill was **run against eval #1 and behaved**; `validate.py` is CLEAN; and the skill
 appears in the invocable listing — observed, not assumed.
