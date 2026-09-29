@@ -15,15 +15,22 @@ no memory of why it was called.
 That isolation is the entire reason to reach for an agent, and it is also the constraint that
 decides most of what follows.
 
-## Ground truth is Anthropic's live sub-agents doc
+## Step 0 — root in the live docs, first
 
-The frontmatter schema, tool names, and subagent behavior described below track
-https://code.claude.com/docs/en/sub-agents. Vendors move faster than any cached summary,
-and a stale field name usually fails _forward_ — Claude Code silently ignores it — which is
-how drift becomes invisible. Before asserting that a field exists, that a tool name is
-valid, or that a permission mode behaves a certain way, fetch the doc. When a claim in a
-conversation comes from training rather than the page you read this session, say
-**"From training, not a doc:"** so the user can check it.
+Pull the current sub-agents reference **before you scaffold anything**, so every field, tool
+name, and permission-mode answer is anchored in today's doc, not recall:
+
+- **Pull the doc — API first, WebFetch fallback.** If the session has a docs/API skill (e.g.
+  `claude-api`), use it; otherwise `WebFetch https://code.claude.com/docs/en/sub-agents` (the
+  built-in fetch tool — no plugin or API needed). From the page, read the frontmatter schema,
+  the valid tool names, the model/effort pin shape, and the permission modes.
+- The schema is not derivable from training, and a stale field fails _forward_ — Claude Code
+  silently ignores an unknown key, so drift is invisible. Ground the seat's frontmatter in
+  what you just pulled, not in this file's summary of it.
+- **If neither path can pull the doc, STOP — do not author from training.** Say what unblocks
+  it and wait. No live doc, no build.
+
+Ground truth is the live page, not this file; where they disagree, the doc wins.
 
 ## First, decide it is an agent at all
 

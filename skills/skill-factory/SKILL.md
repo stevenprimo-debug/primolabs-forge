@@ -26,31 +26,23 @@ work wants isolation: a fresh reviewer, a parallel sweep, a verdict returned bli
 
 ## Step 0 — root in the live docs, before the interview
 
-Fetch the current skills reference **before you build anything**, so every field and
-frontmatter answer the interview gives is anchored in today's doc rather than last month's
-recall:
+Pull the current skills reference **before you build anything**, so every field and
+frontmatter answer the interview gives is anchored in today's doc, not recall:
 
-- Fetch `https://code.claude.com/docs/en/skills` with `WebFetch` — the built-in Claude Code
-  fetch tool. It just retrieves the URL; it does NOT depend on this plugin, on the Anthropic
-  API, or on any other skill being installed, so it works the same whether you invoke this
-  from `primolabs-forge`, another marketplace, or bare Claude Code. (If the session happens to
-  carry a docs skill, that's a fine substitute — but nothing here requires one.) From the page
-  read the frontmatter schema, the `metadata:` policy, the description + `when_to_use`
-  1,536-char cap, the upload-safe key allowlist, and the load paths.
-- The schema is not derivable from training: Anthropic's upload check rejects unknown keys
-  with a hard error, and which keys survive an upload is stated only on the page. Ground the
-  interview's frontmatter guidance in what you just read, not in this file's summary of it.
-- If the fetch can't run — `WebFetch` isn't granted in this harness, or the docs host is
-  blocked/unreachable — **STOP. Do not author from training.** Report that the live-docs fetch
-  failed and what unblocks it (grant `WebFetch`, or allow `code.claude.com`), then wait.
-  Rooting in the live doc is a hard gate here: **no live doc, no build.** The in-file guidance
-  below is a reading aid for how to run the interview, never a substitute for the fetched
-  schema — the facts come from the page every time.
+- **Pull the doc — API first, WebFetch fallback.** If the session has a docs/API skill (e.g.
+  `claude-api`), use it; it reads the current page through the API. Otherwise fall back to
+  `WebFetch https://code.claude.com/docs/en/skills` (the built-in fetch tool — no plugin or API
+  needed). From the page, read the frontmatter schema, the `metadata:` policy, the description
+  + `when_to_use` 1,536-char cap, the upload-safe key allowlist, and the load paths.
+- The schema is not derivable from training — Anthropic's upload check hard-errors on unknown
+  keys, and which keys survive an upload is stated only on the page. Ground the interview's
+  frontmatter guidance in what you just pulled, not in this file's summary of it.
+- **If neither path can pull the doc, STOP — do not author from training.** Say what unblocks
+  it and wait. No live doc, no build.
 
-Ground truth is the live page, not this file. Where they disagree, the doc wins and you say
-so. (When the skill names a third-party service, the same rule applies to that vendor's doc —
-declare it in `--docs` and fetch at the moment of need; a wrong API version fails _forward_,
-behaving differently instead of erroring.)
+Ground truth is the live page, not this file; where they disagree, the doc wins. Same rule for
+any third-party service the skill names — declare it in `--docs` and fetch at the moment of
+need (a wrong API version fails _forward_, behaving differently instead of erroring).
 
 ## The interview
 
