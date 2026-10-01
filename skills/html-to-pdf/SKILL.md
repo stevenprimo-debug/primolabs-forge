@@ -1,7 +1,7 @@
 ---
 name: html-to-pdf
 description: >
-  Convert standalone HTML files to seamless single-page PDFs that match what Chrome renders — no page breaks, no pagination artifacts, no orphan headings. Default mode is `--seamless`: one tall PDF page sized to the full content height, inspired by div riots' html.to.design Figma plugin (https://html.to.design/) which imports HTML into a single Figma frame. Use this skill ANY time the user asks to "convert this HTML to PDF", "make a PDF of this proposal", "html2pdf", "render this scope as PDF", "turn this HTML into a PDF", "save this proposal as PDF", "export this engineering scope to PDF", "make these seamless", "no page breaks", "single-page PDF", or drops an .html file (with custom fonts, base64 images, and full-bleed cover pages) and wants a PDF version. Also trigger when Chrome's built-in print-to-PDF is breaking — viewport-unit covers (min-height: 100vh) not filling the page, Google Fonts falling back to serif, page breaks splitting headings from content. Paginated mode is available via --paginated for cases that need traditional letter/A4 pages. The CLI lives at ${CLAUDE_SKILL_DIR}/html2pdf.py and wraps headless Chromium via Playwright. Wide net: any time HTML and PDF are both mentioned in the same sentence, or any time a proposal/scope/SOW HTML needs to ship as a PDF, this skill should fire.
+  Convert standalone HTML files to seamless single-page PDFs that match what Chrome renders — no page breaks, no pagination artifacts, no orphan headings. Default mode is `--seamless`: one tall PDF page sized to the full content height, inspired by div riots' html.to.design Figma plugin (https://html.to.design/) which imports HTML into a single Figma frame. Use this skill ANY time the user asks to "convert this HTML to PDF", "make a PDF of this proposal", "html2pdf", "render this scope as PDF", "turn this HTML into a PDF", "save this proposal as PDF", "export this engineering scope to PDF", "make these seamless", "no page breaks", "single-page PDF", or drops an .html file (with custom fonts, base64 images, and full-bleed cover pages) and wants a PDF version. Also trigger when Chrome's built-in print-to-PDF is breaking — viewport-unit covers (min-height: 100vh) not filling the page, Google Fonts falling back to serif, page breaks splitting headings from content. Paginated mode is available via --paginated for cases that need traditional letter/A4 pages. The CLI lives at ${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py and wraps headless Chromium via Playwright. Wide net: any time HTML and PDF are both mentioned in the same sentence, or any time a proposal/scope/SOW HTML needs to ship as a PDF, this skill should fire.
 metadata:
   docs: https://playwright.dev/python/docs/api/class-page https://html.to.design/
 ---
@@ -38,20 +38,20 @@ printing one page at a time).
 
 ```bash
 # Default — seamless single-page PDF
-python "${CLAUDE_SKILL_DIR}/html2pdf.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py" \
     "MyProposal.html"
 
 # Custom output path
-python "${CLAUDE_SKILL_DIR}/html2pdf.py" input.html -o /path/to/output.pdf
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py" input.html -o /path/to/output.pdf
 
 # Batch mode — every *.html in the folder becomes a seamless PDF next to it
-python "${CLAUDE_SKILL_DIR}/html2pdf.py" "Proposals/"
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py" "Proposals/"
 
 # Old-school paginated PDF (letter, page-number footer)
-python "${CLAUDE_SKILL_DIR}/html2pdf.py" input.html --paginated
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py" input.html --paginated
 
 # Paginated, A4, no footer, tighter margins
-python "${CLAUDE_SKILL_DIR}/html2pdf.py" input.html --paginated --format A4 \
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py" input.html --paginated --format A4 \
     --no-headers --margin 0.25in
 ```
 
@@ -117,7 +117,7 @@ If the recipient is not that, use seamless.
 **Command (Legal is the default for this mode):**
 
 ```bash
-py -3 ${CLAUDE_SKILL_DIR}/html2pdf.py <in.html> \
+python3 ${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py <in.html> \
     --paginated --format Legal -o <out.pdf>
 ```
 
@@ -129,7 +129,7 @@ Letter spills a near-empty footer-only trailing page. (`--margin`, `--landscape`
 breaks pages wherever it likes: it strands a section heading at the bottom of a
 page and splits a callout card across a page boundary. Add this `@media print`
 block to the HTML to pin those break points. The reusable partial ships next to
-this skill at `${CLAUDE_SKILL_DIR}/print-pagination.css` — paste it
+this skill at `${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/print-pagination.css` — paste it
 in or `<link>` it, then **map the selectors to the target doc's actual
 heading / lede / card classes** (the defaults match the depth-design-system
 grammar emitted by md-to-branded-html):
@@ -214,9 +214,9 @@ it's a continuous document. If a recipient needs paginated, run
 
 ## Where it lives
 
-- CLI: `${CLAUDE_SKILL_DIR}/html2pdf.py`
-- README: `${CLAUDE_SKILL_DIR}/README.md`
-- This skill: `${CLAUDE_SKILL_DIR}/SKILL.md`
+- CLI: `${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py`
+- README: `${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/README.md`
+- This skill: `${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/SKILL.md`
 
 ## Future ideas (parking lot)
 

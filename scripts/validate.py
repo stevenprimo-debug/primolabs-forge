@@ -8,8 +8,8 @@ declarations and safety posture. A file can pass everything here and still be wr
 defence against that is review and real use, not a ninth check. Adding structural checks
 until it feels safe is how a gate suite bloats.
 
-    py -3 scripts/validate.py            # report, exit 1 on any finding
-    py -3 scripts/validate.py --quiet    # exit code only
+    python3 scripts/validate.py            # report, exit 1 on any finding
+    python3 scripts/validate.py --quiet    # exit code only
 """
 
 from __future__ import annotations

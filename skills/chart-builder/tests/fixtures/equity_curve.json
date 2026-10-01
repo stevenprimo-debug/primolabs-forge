@@ -1,0 +1,30 @@
+{
+  "type": "line",
+  "data": {
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "datasets": [
+      {
+        "label": "Account Equity",
+        "data": [
+          10000, 10420, 10180, 11050, 11890, 11600, 12740, 13320, 13010, 14180, 15050, 16240
+        ],
+        "fill": true
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "title": { "display": true, "text": "Equity Curve — Sample Strategy (FY)" },
+      "legend": { "display": true, "position": "top" }
+    },
+    "scales": {
+      "y": {
+        "title": { "display": true, "text": "Equity ($)" },
+        "beginAtZero": false
+      },
+      "x": {
+        "title": { "display": true, "text": "Month" }
+      }
+    }
+  }
+}

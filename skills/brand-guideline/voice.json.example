@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generated": "",
+    "generated_by": "brand-guideline",
+    "sources": []
+  },
+  "brand": {
+    "name": "Your Brand",
+    "one_liner": "",
+    "audience": ""
+  },
+  "tone": {
+    "attributes": ["clear", "direct", "confident"],
+    "register": "professional",
+    "person": "second-person",
+    "sentence_length": "short-to-medium",
+    "reading_level": "plain"
+  },
+  "do": [
+    "Lead with the outcome or the answer.",
+    "Use plain, concrete words the reader would say out loud.",
+    "Prefer short sentences and active voice."
+  ],
+  "dont": [
+    "Do not hedge or pad with filler.",
+    "Do not use jargon the audience would not use themselves."
+  ],
+  "banned_terms": [
+    { "term": "synergy", "reason": "corporate filler (placeholder -- replace per client)", "suggest": "" },
+    { "term": "leverage", "reason": "jargon for a plain verb (placeholder)", "suggest": "use" }
+  ],
+  "preferred_terms": [
+    { "instead_of": "utilize", "use": "use" },
+    { "instead_of": "in order to", "use": "to" }
+  ],
+  "punctuation": {
+    "oxford_comma": true,
+    "exclamation_points": "avoid",
+    "em_dash": "allowed"
+  },
+  "formatting": {
+    "headings": "sentence case",
+    "lists": "allowed",
+    "contractions": "allowed"
+  },
+  "sign_off": "",
+  "examples": [
+    {
+      "context": "opening line",
+      "on_brand": "Your invoice is ready. The total is $1,200, due Friday.",
+      "off_brand": "We are pleased to inform you that your invoice has now been generated."
+    }
+  ]
+}

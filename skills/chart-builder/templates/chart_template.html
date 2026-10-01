@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chart-builder</title>
+<!--
+  chart_template.html — render scaffold for chart-builder.
+
+  chart_builder.py reads this file, injects the vendored Chart.js bundle
+  inline (replacing the bundle token in the script tag below) and the JSON
+  config (replacing the config token below), then either:
+    * loads it in headless Chromium and screenshots #chart  -> PNG
+    * writes it to disk verbatim as a standalone HTML file   -> --emit-html
+
+  Both the bundle and the config are inlined, so the emitted HTML is
+  fully self-contained and works offline (no CDN, no external files).
+  That self-contained HTML flows straight into html2pdf's Playwright
+  pipeline for proposal/scope/SOW embedding.
+-->
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+  }
+  /* The wrapper is what chart_builder.py measures + screenshots. Its size
+     is overwritten inline by the renderer from the config width/height so
+     the PNG crops tight to the chart with no surrounding whitespace. */
+  #chart-wrap {
+    box-sizing: border-box;
+    width: 1200px;
+    height: 600px;
+    padding: 24px;
+    background: #ffffff;
+  }
+  canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div id="chart-wrap">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <!-- Vendored Chart.js v4 UMD bundle (window.Chart global) inlined here. -->
+  <script>__CHARTJS_BUNDLE__</script>
+
+  <script>
+    // The config token below is replaced with the JSON config object literal.
+    const __CB_CONFIG__ = __CHART_CONFIG__;
+
+    // Default palette applied before instantiation (overridable per-config).
+    // Monochrome #F5F5F5 ground + near-black #0B0B0C ink, ONE orange spark #FF6A2B;
+    // multi-series ramp = spark first, then a neutral monochrome step ramp (depth is
+    // the system, the spark is the single accent). Override any value via the config's
+    // own brand block to match your own palette.
+    window.__CB_BRAND__ = {
+      accent:      '#FF6A2B',
+      accentHi:    '#FF6A2B',
+      accentDeep:  '#FF6A2B',
+      emphasis:    '#FF6A2B',
+      // Ordered categorical palette: spark first, then a monochrome near-black ramp.
+      series: ['#FF6A2B', '#0B0B0C', '#5C5C5E', '#8A8A8C', '#B4B4B6', '#D4D4D6', '#3D7390'],
+      text:        '#0B0B0C',
+      textDim:     'rgba(11, 11, 12, 0.58)',
+      grid:        'rgba(11, 11, 12, 0.08)'
+    };
+
+    (function applyBrandDefaults(cfg, brand) {
+      if (!cfg || typeof cfg !== 'object') return;
+      // Global Chart.js defaults — font + base colors.
+      if (window.Chart) {
+        Chart.defaults.font.family =
+          "'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif";
+        Chart.defaults.color = brand.text;
+        if (Chart.defaults.scale && Chart.defaults.scale.grid) {
+          Chart.defaults.scale.grid.color = brand.grid;
+        }
+      }
+
+      const data = cfg.data || {};
+      const datasets = Array.isArray(data.datasets) ? data.datasets : [];
+      const type = cfg.type;
+      const sliceTypes = ['pie', 'doughnut', 'polarArea'];
+
+      datasets.forEach((ds, i) => {
+        if (sliceTypes.indexOf(type) !== -1) {
+          // Per-slice coloring: map each data point to the series palette.
+          if (ds.backgroundColor === undefined) {
+            const n = Array.isArray(ds.data) ? ds.data.length : brand.series.length;
+            ds.backgroundColor = Array.from({ length: n },
+              (_, k) => brand.series[k % brand.series.length]);
+          }
+          if (ds.borderColor === undefined) ds.borderColor = '#ffffff';
+          if (ds.borderWidth === undefined) ds.borderWidth = 2;
+        } else {
+          // Line / bar / radar / scatter / bubble: one color per dataset.
+          const color = brand.series[i % brand.series.length];
+          if (ds.borderColor === undefined) ds.borderColor = color;
+          if (ds.backgroundColor === undefined) {
+            // Bars want solid; line/area want a translucent fill.
+            if (type === 'bar') {
+              ds.backgroundColor = color;
+            } else {
+              ds.backgroundColor = hexToRgba(color, 0.18);
+            }
+          }
+          if (ds.pointBackgroundColor === undefined) ds.pointBackgroundColor = color;
+          if (type === 'line' && ds.tension === undefined) ds.tension = 0.25;
+        }
+      });
+
+      function hexToRgba(hex, a) {
+        const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        if (!m) return hex;
+        return 'rgba(' + parseInt(m[1], 16) + ',' + parseInt(m[2], 16) +
+               ',' + parseInt(m[3], 16) + ',' + a + ')';
+      }
+    })(__CB_CONFIG__, window.__CB_BRAND__);
+
+    // Surface Chart.js + runtime errors to the page so the renderer can
+    // scrape them off the DOM and re-emit to stderr.
+    window.__CB_ERROR__ = null;
+    window.addEventListener('error', function (e) {
+      window.__CB_ERROR__ = (e && e.message) ? e.message : String(e);
+    });
+
+    let __cbChart = null;
+    try {
+      if (!window.Chart) throw new Error('Chart.js bundle failed to load (window.Chart undefined)');
+      const ctx = document.getElementById('chart').getContext('2d');
+      // Disable animation so the screenshot captures the final frame.
+      __CB_CONFIG__.options = __CB_CONFIG__.options || {};
+      __CB_CONFIG__.options.animation = false;
+      __CB_CONFIG__.options.responsive = false;
+      __CB_CONFIG__.options.maintainAspectRatio = false;
+      __cbChart = new Chart(ctx, __CB_CONFIG__);
+      // Signal to the renderer that the chart instantiated cleanly.
+      window.__CB_READY__ = true;
+    } catch (err) {
+      window.__CB_ERROR__ = err && err.message ? err.message : String(err);
+      window.__CB_READY__ = false;
+    }
+  </script>
+</body>
+</html>

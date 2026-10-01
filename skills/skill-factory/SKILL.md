@@ -123,7 +123,7 @@ step 1.
 With the interview answered, scaffold the folder:
 
 ```
-py -3 ${CLAUDE_PLUGIN_ROOT}/scripts/factory.py skill <slug> --desc "<the router-rule description>" [--docs <url>]
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/factory.py skill <slug> --desc "<the router-rule description>" [--docs <url>]
 ```
 
 `--docs` is required once the body names a third-party service: declare the canonical URL and
@@ -193,13 +193,13 @@ across. Cutting the prose around them is expected; losing one of them is the fai
 Enumerate the source's sections first:
 
 ```
-py -3 ${CLAUDE_PLUGIN_ROOT}/scripts/skill_factory.py headers --file <source>
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/skill_factory.py headers --file <source>
 ```
 
 Author with every section carried across, then gate before writing:
 
 ```
-py -3 ${CLAUDE_PLUGIN_ROOT}/scripts/skill_factory.py verify --source <source> --output <draft>
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/skill_factory.py verify --source <source> --output <draft>
 ```
 
 **One gate: header survival.** Every source header must survive as a real header in the output
@@ -213,7 +213,7 @@ shell that kept 1 of 26 headers — it looked clean and had thrown away the cont
 ## Validate
 
 ```
-py -3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate.py
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate.py
 ```
 
 Checks the load path, body size, description presence, official frontmatter fields, declared

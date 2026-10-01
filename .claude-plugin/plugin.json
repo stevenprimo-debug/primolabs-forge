@@ -1,8 +1,8 @@
 {
   "name": "primolabs-forge",
   "displayName": "PrimoLabs Forge",
-  "version": "0.5.0",
-  "description": "An authoring kit for Claude Code. Factories that scaffold and validate skills, agents, and prompts; pre-mortem discipline; and branded Markdown-to-HTML/PDF rendering. Build with Claude Code the way a studio does.",
+  "version": "0.6.0",
+  "description": "A studio authoring kit for Claude Code and Cowork. Factories that scaffold and validate skills, agents, and prompts; adversarial reasoning and pre-mortem discipline; a brand voice pipeline; Chart.js charting; branded Markdown-to-HTML/PDF rendering; and cross-session recall. Build with Claude the way a studio does.",
   "author": {
     "name": "PrimoLabs",
     "email": "hello@primolabs.ai"

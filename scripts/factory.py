@@ -4,9 +4,9 @@
 A factory is a template plus a validator. This one emits ONE file and refuses to leave the
 repo dirty.
 
-    py -3 scripts/factory.py agent shopify   --desc "..." --docs https://shopify.dev/docs/api
-    py -3 scripts/factory.py skill order-sync --desc "..." --docs https://shopify.dev/docs/api
-    py -3 scripts/factory.py agent shopify   --desc "..." --dry-run
+    python3 scripts/factory.py agent shopify   --desc "..." --docs https://shopify.dev/docs/api
+    python3 scripts/factory.py skill order-sync --desc "..." --docs https://shopify.dev/docs/api
+    python3 scripts/factory.py agent shopify   --desc "..." --dry-run
 
 Refuses to overwrite. Runs the validator afterwards and reverts its own write if the repo
 would be left failing -- so the factory cannot be the thing that introduces a finding.
@@ -24,7 +24,7 @@ from pathlib import Path
 # When run as a plugin the factory reads its own templates from the PLUGIN root and
 # WRITES the emitted seat into the user's PROJECT repo -- never back into the plugin.
 # Env vars are the official contract (code.claude.com/docs/en/plugins-reference);
-# fall back to script-relative / cwd so a direct `py -3 scripts/factory.py` still works.
+# fall back to script-relative / cwd so a direct `python3 scripts/factory.py` still works.
 PLUGIN_ROOT = Path(
     os.environ.get("CLAUDE_PLUGIN_ROOT") or Path(__file__).resolve().parent.parent
 ).resolve()

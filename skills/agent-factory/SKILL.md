@@ -55,7 +55,7 @@ user, reconsider.
 ## Emit it
 
 ```
-py -3 ${CLAUDE_PLUGIN_ROOT}/scripts/factory.py agent <slug> --desc "<router-rule description>" [--docs <url>]
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/factory.py agent <slug> --desc "<router-rule description>" [--docs <url>]
 ```
 
 The description is what routing runs on, so name concrete cases rather than a topic. `--docs`
@@ -99,7 +99,7 @@ reason cannot be re-litigated later, because nobody knows whether it was measure
 ## Validate
 
 ```
-py -3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate.py
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate.py
 ```
 
 Nine checks including frontmatter fields, the model-pin shape, and the scrap detector. It must

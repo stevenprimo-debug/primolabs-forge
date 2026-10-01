@@ -1,0 +1,32 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": ["Q1", "Q2", "Q3", "Q4"],
+    "datasets": [
+      {
+        "label": "Revenue",
+        "data": [42000, 51000, 47500, 63000]
+      },
+      {
+        "label": "Costs",
+        "data": [28000, 31500, 30200, 38000]
+      },
+      {
+        "label": "Net P&L",
+        "data": [14000, 19500, 17300, 25000]
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "title": { "display": true, "text": "Quarterly P&L — Sample Business" },
+      "legend": { "display": true, "position": "top" }
+    },
+    "scales": {
+      "y": {
+        "title": { "display": true, "text": "USD ($)" },
+        "beginAtZero": true
+      }
+    }
+  }
+}

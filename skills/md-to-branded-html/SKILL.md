@@ -32,7 +32,7 @@ metadata:
 
 ## TL;DR -- read this first
 
-Any markdown a HUMAN will read gets a branded HTML read copy; machine-only docs stay markdown. The discriminator is **audience, not document status**. Run `py -3 ${CLAUDE_SKILL_DIR}/render.py <input.md> -o <out.html>` -- it resolves the active brand's tokens via the shared brand-resolver (a per-project brand file -> `.claude/brand.json.example` -> in-code neutral; default client `default`) and emits the **depth look by default**: monochrome `#F5F5F5` ground, near-black ink, depth via the `--pl-cascade` + `--pl-bevel-top` shadow stack (depth IS the accent), an orange spark `#FF6A2B` only on tiny round dots, Plus Jakarta Sans display + Inter body. Markdown maps onto the depth grammar automatically -- H1 -> titleblock, H2 -> `.section` + `.section-num` + `.section-pill`/`.section-title`, intro paragraph -> `.section-lede`, top-level bullet lists -> `.check` depth cards, tables in the depth idiom -- and when a style-pack lockup exists it is SLICED into the header (flat-vector mark + wordmark + spark). If `-o` is omitted, output lands alongside the input (in the current working directory when the input is there); the markdown stays untouched as the working source. The one way this goes wrong: rendering a machine-read doc (memory, raw diligence) that nobody reads, or hand-authoring HTML instead of driving the script and the resolved `brand.json`. Optional flags: `--eyebrow` (label above title), `--pill` (header status-pill text, defaults to the brand's owner_dept_label).
+Any markdown a HUMAN will read gets a branded HTML read copy; machine-only docs stay markdown. The discriminator is **audience, not document status**. Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/md-to-branded-html/render.py <input.md> -o <out.html>` -- it resolves the active brand's tokens via the shared brand-resolver (a per-project brand file -> `.claude/brand.json.example` -> in-code neutral; default client `default`) and emits the **depth look by default**: monochrome `#F5F5F5` ground, near-black ink, depth via the `--pl-cascade` + `--pl-bevel-top` shadow stack (depth IS the accent), an orange spark `#FF6A2B` only on tiny round dots, Plus Jakarta Sans display + Inter body. Markdown maps onto the depth grammar automatically -- H1 -> titleblock, H2 -> `.section` + `.section-num` + `.section-pill`/`.section-title`, intro paragraph -> `.section-lede`, top-level bullet lists -> `.check` depth cards, tables in the depth idiom -- and when a style-pack lockup exists it is SLICED into the header (flat-vector mark + wordmark + spark). If `-o` is omitted, output lands alongside the input (in the current working directory when the input is there); the markdown stays untouched as the working source. The one way this goes wrong: rendering a machine-read doc (memory, raw diligence) that nobody reads, or hand-authoring HTML instead of driving the script and the resolved `brand.json`. Optional flags: `--eyebrow` (label above title), `--pill` (header status-pill text, defaults to the brand's owner_dept_label).
 
 ---
 
@@ -58,7 +58,7 @@ When unsure, default to render -- a wrongly-rendered doc costs nothing; a wrongl
 ## Step 2 -- Run the renderer
 
 ```bash
-py -3 ${CLAUDE_SKILL_DIR}/render.py <input.md> \
+python3 ${CLAUDE_PLUGIN_ROOT}/skills/md-to-branded-html/render.py <input.md> \
     -o <name>.html \
     --title "Human Title" \
     --subtitle "One-line context (optional)"
@@ -78,7 +78,7 @@ Keep working-source markdown where the work lives; render the branded HTML as a 
 When the doc must be a formal/print artifact, pair with the sibling skill `html-to-pdf` -- seamless is the default (one tall page, no pagination):
 
 ```bash
-py -3 ${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py <name>.html
+python3 ${CLAUDE_PLUGIN_ROOT}/skills/html-to-pdf/html2pdf.py <name>.html
 ```
 
 ## Step 5 -- QA + deliver

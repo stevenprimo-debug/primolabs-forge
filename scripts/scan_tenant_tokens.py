@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Refuse to let one client's token ride a shipped skill to another tenant.
 
-    py -3 scripts/scan_tenant_tokens.py [<repo>] [--tokens FILE] [--staged]
+    python3 scripts/scan_tenant_tokens.py [<repo>] [--tokens FILE] [--staged]
 
 Exit 0 = clean.  Exit 1 = a tenant token was found in a shipped file; do not push.
 Exit 2 = git failed / bad repo.  Exit 3 = no token denylist configured.
