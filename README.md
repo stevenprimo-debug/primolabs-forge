@@ -1,6 +1,6 @@
 # PrimoLabs Forge
 
-**A studio authoring kit for Claude Code and Cowork — v0.6.1.**
+**A studio authoring kit for Claude Code and Cowork — v0.6.2.**
 
 The tools a studio uses to build *with* Claude, packaged as one plugin: factories that
 scaffold and validate skills, agents, and prompts; adversarial reasoning and pre-mortem
@@ -38,10 +38,12 @@ Versions marked `—` ship with the plugin (v0.6.0) and carry no independent ver
 
 | Skill | What it does | How to use | Version |
 |-------|--------------|-----------|---------|
-| `skill-factory` | Interviews you, grounds in the live skills doc, then authors one skill — triggering description, body against the standard, references, an eval set, and a validation run. | "build a skill", "make a skill for X" | — |
-| `agent-factory` | Authors one subagent seat — a focused, tool-restricted agent for isolated or parallel work. | "build an agent", "make a subagent for X" | — |
-| `prompt-factory` | Builds a model-targeted structured prompt, splicing in per-model constraints. | "build a prompt", "author a system prompt" | — |
+| `skill-factory` | Interviews you, grounds in the live skills doc, then authors one skill — triggering description, body against the standard, references, an eval set, and a validation run. | `/primolabs-forge:skill-factory` | — |
+| `agent-factory` | Authors one subagent seat — a focused, tool-restricted agent for isolated or parallel work. | `/primolabs-forge:agent-factory` | — |
+| `prompt-factory` | Builds a model-targeted structured prompt, splicing in per-model constraints. | `/primolabs-forge:prompt-factory` | — |
 | `prompt-builder` | Turns a rough ask into a clean, structured XML prompt. | "turn this into a proper prompt" | — |
+
+> **The three factories are command-invoked** (they do not auto-fire from natural language — by design). Run them with their commands: `/primolabs-forge:skill-factory`, `/primolabs-forge:agent-factory`, `/primolabs-forge:prompt-factory`. This is the trigger that works in **Cowork** (Cowork runs plugin commands by name but cannot auto-select command-only skills). Their **Step-0 live-docs fetch** uses the browser, so it needs browsing enabled in Cowork.
 
 ### Reasoning & discipline — catch the mistake before it costs you
 
