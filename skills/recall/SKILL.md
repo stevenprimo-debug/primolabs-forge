@@ -12,7 +12,7 @@ description: >-
   Cowork project that has an attached folder.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   author: PrimoLabs
 ---
 
@@ -55,7 +55,9 @@ so every entry reads the same and READ can parse them:
 Rules:
 - Use today's real date (`YYYY-MM-DD`). Never guess a date.
 - **Append, never overwrite.** A recall log is a record; earlier entries are never rewritten
-  or deleted. If the file does not exist, create it with the header below, then the entry.
+  or deleted. If the file does not exist, create it with the header below, then the entry --
+  this is the FIRST invocation: it establishes `RECALL.md` at the project folder root. Report
+  the path you created it at ("started a recall log at <path>") so the user knows it exists.
 - Keep each entry short — this is a memory jog, not a transcript. One screenful at most.
 - Capture only what a future session needs to continue: outcomes, decisions, open loops, next
   step. Leave out blow-by-blow detail.
@@ -67,6 +69,18 @@ New-file header (write once, above the entries):
 
 Cross-session memory for this project, maintained by the `recall` skill. Newest entry first.
 ```
+
+## REMIND — keep the log alive (so recall has something to read next time)
+
+Recall only knows what was saved, so do not wait to be asked every single time:
+
+- **First use in a project** — the first SAVE creates `RECALL.md` and reports its path, so the
+  user learns where the log lives and that it exists from here on.
+- **At a natural stopping point** — a milestone finished, a decision made, a blocker hit, or
+  the user signals the session is wrapping ("that's it for now", "let's stop here") —
+  proactively OFFER once: *"Want me to save this to recall?"* Save on a yes.
+- Offer **at most once** per stopping point. Do not nag mid-task. An explicit "save to recall"
+  always saves immediately with no prompt; the offer is only for when the user did not ask.
 
 ## Scope
 

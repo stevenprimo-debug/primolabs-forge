@@ -1,6 +1,6 @@
 # PrimoLabs Forge
 
-**A studio authoring kit for Claude Code and Cowork — v0.6.0.**
+**A studio authoring kit for Claude Code and Cowork — v0.6.1.**
 
 The tools a studio uses to build *with* Claude, packaged as one plugin: factories that
 scaffold and validate skills, agents, and prompts; adversarial reasoning and pre-mortem
@@ -71,7 +71,9 @@ Versions marked `—` ship with the plugin (v0.6.0) and carry no independent ver
 
 | Skill | What it does | How to use | Version |
 |-------|--------------|-----------|---------|
-| `recall` | Maintains a plain `RECALL.md` in the project folder — reads the latest entries to catch you up, appends a dated entry to save state. Pure files; works in Cowork where the native memory has no skill API. | "catch me up", "where did we leave off", "save this to recall" | 1.0.0 |
+| `recall` | Maintains a plain `RECALL.md` in the project folder — reads the latest entries to catch you up, appends a dated entry to save state. The **first save creates the file** at the project root and reports the path; it then **offers to save at natural stopping points** so the log actually gets built. Pure files; works in Cowork where the native memory has no skill API. | "catch me up", "where did we leave off", "save this to recall" | 1.0.1 |
+
+> **How recall persists:** it is user-initiated — it does **not** comb your session history. It knows only what was saved to `RECALL.md`. The **first save creates that file** at the project folder root and reports its path. From then on, recall **offers to save at natural stopping points** (a milestone, a decision, "let's stop here") so the log stays current — and an explicit "save to recall" always saves immediately. Say "catch me up" to read it back next session.
 
 ---
 
