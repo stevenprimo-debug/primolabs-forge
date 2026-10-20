@@ -1,0 +1,24 @@
+# Shared PrimoLabs CI (stevenprimo-debug/primolabs-ci): a gitleaks secret scan on every push and
+# PR, plus this repo's own checks below. Change the checks here; change the shared jobs there.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read # the shared secret scan lists a PR's commits
+
+jobs:
+  ci:
+    uses: stevenprimo-debug/primolabs-ci/.github/workflows/ci.yml@v1
+    with:
+      python-run: |
+        python scripts/validate.py
+        for f in .claude-plugin/*.json; do python -m json.tool "$f" > /dev/null; done
